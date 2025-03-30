@@ -27,7 +27,13 @@
         iframe.style.height = '100%';
         iframe.style.border = 'none';
         iframe.onload = () => {
-            iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+            // 使用try-catch处理跨域错误
+            try {
+                iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+            } catch (e) {
+                console.log('Cross-origin frame access blocked, using default height');
+                iframe.style.height = '100%';
+            }
         };
         iframe.onerror = () => {
             container.innerHTML = '<h1 style="color:white;text-align:center;font-size:20vw;margin:0;">FXCK!</h1>';
